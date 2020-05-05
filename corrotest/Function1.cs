@@ -70,8 +70,17 @@ namespace corrotest
             }
             backendCall.SubscriptionKey = req?.Test?.SubscriptionKey ?? backendCall.SubscriptionKey;
             backendCall.SubscriptionName = req?.Test?.SubscriptionName ?? backendCall.SubscriptionName;
-            backendCall.Data = req.Data;
+
+            var templateData = new TemplateData();
+            backendCall.TemplateData = templateData;
+
+
+
+            templateData.CustomData = req.Data;
             backendCall.Email = req.Email ?? "Ewen@tallyIt.com.au";
+            templateData.Email = backendCall.Email;
+
+
 
             backendCall.OrgName = orgname;
 
@@ -86,20 +95,20 @@ namespace corrotest
                 case ContactType.PrimaryAndSeconmdary:
                 case ContactType.Primary:
                 case ContactType.All:
-                    backendCall.ContactType = "Primary";
+                    templateData.ContactType = "Primary";
                     break;
 
 
                 case ContactType.LifeSupport:
                 case ContactType.Site:
-                    backendCall.ContactType = "Site";
+                    templateData.ContactType = "Site";
                     break;
 
                 default:
-                    backendCall.ContactType = req.ContactType.ToString();
+                    templateData.ContactType = req.ContactType.ToString();
                     break;
             }
-            backendCall.AddressType = req.AddressType;
+            templateData.AddressType = req.AddressType;
 
 
 
@@ -107,141 +116,141 @@ namespace corrotest
             {
                 case 0:
                     backendCall.AccountName = "Daniell and Ewen Stewart";
-                    backendCall.AddressType = "Billing";
-                    backendCall.AddressLocation = "143 new street Brighton VIC 3186 ";
-                    backendCall.Addressee = null;
-                    backendCall.Address = "143 New Street";
-                    backendCall.Address2 = null;
-                    backendCall.Address3 = null;
-                    backendCall.AddressState = "VIC";
-                    backendCall.AddressSuburb = "Brighton";
-                    backendCall.AddressPostCode = "3186";
-                    backendCall.AddressCountry = "Australia";
-                    backendCall.BusinessAccount = false;
-                    backendCall.BuisnessName = null;
-                    backendCall.BusinessNumber = null;
-                    backendCall.ContactType = "Primary account holder";
+                    templateData.AddressType = "Billing";
+                    templateData.AddressLocation = "143 new street Brighton VIC 3186 ";
+                    templateData.Addressee = null;
+                    templateData.Address = "143 New Street";
+                    templateData.Address2 = null;
+                    templateData.Address3 = null;
+                    templateData.AddressState = "VIC";
+                    templateData.AddressSuburb = "Brighton";
+                    templateData.AddressPostCode = "3186";
+                    templateData.AddressCountry = "Australia";
+                    templateData.BusinessAccount = false;
+                    templateData.BuisnessName = null;
+                    templateData.BusinessNumber = null;
+                    templateData.ContactType = "Primary account holder";
 
-                    backendCall.ContactTitle = "Mr";
-                    backendCall.ContactFirstName = "Ewen";
-                    backendCall.ContactFamilyName = "Stewart";
-                    backendCall.ContactFullName = "Mr Ewen Stewart";
-                    backendCall.SiteLocation = "143 new street Brighton VIC 3106 ";
-                    backendCall.SiteRef = "1234567890-1";
-                    backendCall.SiteType = "NMI ";
-                    backendCall.ServiceRef = null;
+                    templateData.ContactTitle = "Mr";
+                    templateData.ContactFirstName = "Ewen";
+                    templateData.ContactFamilyName = "Stewart";
+                    templateData.ContactFullName = "Mr Ewen Stewart";
+                    templateData.SiteLocation = "143 new street Brighton VIC 3106 ";
+                    templateData.SiteRef = "1234567890-1";
+                    templateData.SiteType = "NMI ";
+                    templateData.ServiceRef = null;
 
 
                     break;
                 case 1:
                     backendCall.AccountName = "Sorted Services";
-                    backendCall.AddressType = "Billing";
+                    templateData.AddressType = "Billing";
 
-                    backendCall.AddressLocation = "11-13 Cubitt Street Cremorne VIC 3121";
+                    templateData.AddressLocation = "11-13 Cubitt Street Cremorne VIC 3121";
 
 
-                    if (backendCall.ContactType.Equals("Billing", StringComparison.OrdinalIgnoreCase) || backendCall.ContactType.Equals("Secondary", StringComparison.OrdinalIgnoreCase))
+                    if (templateData.ContactType.Equals("Billing", StringComparison.OrdinalIgnoreCase) || templateData.ContactType.Equals("Secondary", StringComparison.OrdinalIgnoreCase))
                     {
 
-                        backendCall.Addressee = "Ms Nyomi Watts";
-                        backendCall.AddresseeDept = "Account payable";
-                        backendCall.AddresseeCompany = "Sorted Services Pty Ltd";
-                        backendCall.Address = "11-13 Cubitt Street";
-                        backendCall.Address2 = null;
-                        backendCall.Address3 = null;
-                        backendCall.AddressState = "VIC";
-                        backendCall.AddressSuburb = "Cremorne";
-                        backendCall.AddressPostCode = "3121";
-                        backendCall.AddressCountry = "Australia";
+                        templateData.Addressee = "Ms Nyomi Watts";
+                        templateData.AddresseeDept = "Account payable";
+                        templateData.AddresseeCompany = "Sorted Services Pty Ltd";
+                        templateData.Address = "11-13 Cubitt Street";
+                        templateData.Address2 = null;
+                        templateData.Address3 = null;
+                        templateData.AddressState = "VIC";
+                        templateData.AddressSuburb = "Cremorne";
+                        templateData.AddressPostCode = "3121";
+                        templateData.AddressCountry = "Australia";
 
-                        backendCall.ContactTitle = "Ms";
-                        backendCall.ContactFirstName = "Nyomi";
-                        backendCall.ContactFamilyName = "Watts";
-                        backendCall.ContactJobTitle = "Administration Manager";
-                        backendCall.ContactJobDepartment = "Account Payable";
-                        backendCall.ContactFullName = "Ms Nyomi Watts";
+                        templateData.ContactTitle = "Ms";
+                        templateData.ContactFirstName = "Nyomi";
+                        templateData.ContactFamilyName = "Watts";
+                        templateData.ContactJobTitle = "Administration Manager";
+                        templateData.ContactJobDepartment = "Account Payable";
+                        templateData.ContactFullName = "Ms Nyomi Watts";
                     }
-                    else if (backendCall.ContactType.Equals("Site", StringComparison.OrdinalIgnoreCase))
+                    else if (templateData.ContactType.Equals("Site", StringComparison.OrdinalIgnoreCase))
                     {
-                        backendCall.Addressee = "Site manager";
-                        backendCall.AddresseeCompany = "Sorted Services Pty Ltd";
-                        backendCall.Address = "9 Cubitt Street";
-                        backendCall.Address2 = null;
-                        backendCall.Address3 = null;
-                        backendCall.AddressState = "VIC";
-                        backendCall.AddressSuburb = "Cremorne";
-                        backendCall.AddressPostCode = "3121";
-                        backendCall.AddressCountry = "Australia";
+                        templateData.Addressee = "Site manager";
+                        templateData.AddresseeCompany = "Sorted Services Pty Ltd";
+                        templateData.Address = "9 Cubitt Street";
+                        templateData.Address2 = null;
+                        templateData.Address3 = null;
+                        templateData.AddressState = "VIC";
+                        templateData.AddressSuburb = "Cremorne";
+                        templateData.AddressPostCode = "3121";
+                        templateData.AddressCountry = "Australia";
 
-                        backendCall.ContactTitle = "Mr";
-                        backendCall.ContactFirstName = "Fred";
-                        backendCall.ContactFamilyName = "Qwerty";
-                        backendCall.ContactJobTitle = "Building Manager";
-                        backendCall.ContactFullName = "Mr Fred Qwerty";
+                        templateData.ContactTitle = "Mr";
+                        templateData.ContactFirstName = "Fred";
+                        templateData.ContactFamilyName = "Qwerty";
+                        templateData.ContactJobTitle = "Building Manager";
+                        templateData.ContactFullName = "Mr Fred Qwerty";
 
 
 
                     }
                     else
                     {
-                        backendCall.Addressee = "Mr Andrew Duncan";
-                        backendCall.AddresseeDept = "Director";
-                        backendCall.AddresseeCompany = "Sorted Services Pty Ltd";
+                        templateData.Addressee = "Mr Andrew Duncan";
+                        templateData.AddresseeDept = "Director";
+                        templateData.AddresseeCompany = "Sorted Services Pty Ltd";
 
-                        backendCall.Address = "Sleeves Up";
-                        backendCall.Address2 = "11-13 Cubitt street";
-                        backendCall.Address3 = null;
-                        backendCall.AddressState = "VIC";
-                        backendCall.AddressSuburb = "Cremorne";
-                        backendCall.AddressPostCode = "3121";
-                        backendCall.AddressCountry = "Australia";
+                        templateData.Address = "Sleeves Up";
+                        templateData.Address2 = "11-13 Cubitt street";
+                        templateData.Address3 = null;
+                        templateData.AddressState = "VIC";
+                        templateData.AddressSuburb = "Cremorne";
+                        templateData.AddressPostCode = "3121";
+                        templateData.AddressCountry = "Australia";
 
-                        backendCall.ContactTitle = "Mr";
-                        backendCall.ContactFirstName = "Andrew";
-                        backendCall.ContactFamilyName = "Duncan";
-                        backendCall.ContactJobTitle = "Director";
-                        backendCall.ContactFullName = "Mr Andrew Duncan";
+                        templateData.ContactTitle = "Mr";
+                        templateData.ContactFirstName = "Andrew";
+                        templateData.ContactFamilyName = "Duncan";
+                        templateData.ContactJobTitle = "Director";
+                        templateData.ContactFullName = "Mr Andrew Duncan";
 
 
                     }
 
 
-                    backendCall.BusinessAccount = true;
-                    backendCall.BuisnessName = "Sorted Services Pty Ltd";
-                    backendCall.BusinessNumber = "123456787980";
+                    templateData.BusinessAccount = true;
+                    templateData.BuisnessName = "Sorted Services Pty Ltd";
+                    templateData.BusinessNumber = "123456787980";
 
 
 
-                    backendCall.SiteLocation = "9 Cubitt Street Cremoren VIC 3121  ";
-                    backendCall.SiteRef = "Sads5XS890-1";
-                    backendCall.SiteType = "MIRN";
-                    backendCall.ServiceRef = "1saasd";
+                    templateData.SiteLocation = "9 Cubitt Street Cremoren VIC 3121  ";
+                    templateData.SiteRef = "Sads5XS890-1";
+                    templateData.SiteType = "MIRN";
+                    templateData.ServiceRef = "1saasd";
 
 
                     break;
                 default:
 
 
-                    backendCall.AddressType = "Site";
-                    backendCall.AddressLocation = "143 new street Brighton VIC 3186 ";
-                    backendCall.Addressee = "Occupier";
-                    backendCall.Address = "143 New Street";
-                    backendCall.Address2 = null;
-                    backendCall.Address3 = null;
-                    backendCall.AddressState = "VIC";
-                    backendCall.AddressSuburb = "Brighton";
-                    backendCall.AddressPostCode = "3186";
-                    backendCall.AddressCountry = "Australia";
-                    backendCall.BusinessAccount = false;
-                    backendCall.BuisnessName = null;
-                    backendCall.BusinessNumber = null;
+                    templateData.AddressType = "Site";
+                    templateData.AddressLocation = "143 new street Brighton VIC 3186 ";
+                    templateData.Addressee = "Occupier";
+                    templateData.Address = "143 New Street";
+                    templateData.Address2 = null;
+                    templateData.Address3 = null;
+                    templateData.AddressState = "VIC";
+                    templateData.AddressSuburb = "Brighton";
+                    templateData.AddressPostCode = "3186";
+                    templateData.AddressCountry = "Australia";
+                    templateData.BusinessAccount = false;
+                    templateData.BuisnessName = null;
+                    templateData.BusinessNumber = null;
 
 
-                    backendCall.ContactTitle = "Occupier";
-                    backendCall.SiteLocation = "143 new street Brighton VIC 3106 ";
-                    backendCall.SiteRef = "1234567890-1";
-                    backendCall.SiteType = "NMI ";
-                    backendCall.ServiceRef = null;
+                    templateData.ContactTitle = "Occupier";
+                    templateData.SiteLocation = "143 new street Brighton VIC 3106 ";
+                    templateData.SiteRef = "1234567890-1";
+                    templateData.SiteType = "NMI ";
+                    templateData.ServiceRef = null;
 
                     break;
             }
@@ -251,6 +260,11 @@ namespace corrotest
 
 
             string target = req.Test.ServiceURI ?? RequestUri;
+
+            backendCall.TemplateData.AccountName = backendCall.AccountName;
+            backendCall.TemplateData.AccountNumber = backendCall.AccountNumber;
+            backendCall.TemplateData.Email = backendCall.Email;
+            
 
 
             await client.PostAsJsonAsync(target, backendCall);
@@ -267,6 +281,7 @@ namespace corrotest
                 req.ContactType = ContactType.Secondary.ToString(); await SendMail(req, orgname, accountnumber, log);
             }
 
+            
 
             return new OkObjectResult(backendCall.RequestId);
         }
@@ -386,15 +401,14 @@ namespace corrotest
 
 
 
-    public class Tally2BackendRequest
+
+    public class TemplateData 
     {
-        public string OrgName { get; set; }
-        public string SubscriptionName { get; set; }
-        public string SubscriptionKey { get; set; }
-        public string RequestId { get; set; }
+
         public string AccountNumber { get; set; }
         public string AccountName { get; set; }
-        public string ActualTemplateName { get; set; }
+
+
         public string Email { get; set; }
 
 
@@ -452,7 +466,26 @@ namespace corrotest
         public string SiteLocation { get; set; }
 
 
-        public object Data { get; set; }
+        public object CustomData { get; set; }
+
+    }
+
+
+
+
+    public class Tally2BackendRequest
+    {
+        public string Email { get; set; }
+        public string OrgName { get; set; }
+        public string SubscriptionName { get; set; }
+        public string SubscriptionKey { get; set; }
+        public string RequestId { get; set; }
+
+        public string AccountNumber { get; set; }
+        public string AccountName { get; set; }
+        public string ActualTemplateName { get; set; }
+
+        public TemplateData TemplateData { get; set; }
 
 
     }
